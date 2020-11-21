@@ -4,7 +4,7 @@ if(message.guild.id === "ID de ton serveur"){
       let auteur = message.embeds[0].description.substr(2, 18)
       let msgrequis = "Bump effectué !"
       if(message.embeds[0].description.includes(msgrequis)){
-      // N'oublier pas de rajouter votre fonction si vous voulez donner du crédits à la personne qui bump votre serveur !
+      // N'oublier pas de rajouter votre fonction si vous voulez donner des crédits à la personne qui bump votre serveur !
       // Exemple avec quick.db :
       //db.add(votrefonction_${auteur.id}, 10) 
        message.channel.send(`<@${auteur}> vous avez gagné un truc !`)

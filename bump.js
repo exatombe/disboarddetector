@@ -1,15 +1,31 @@
-
-if(message.guild.id === "ID de ton serveur"){
-    if(message.author.id === "302050872383242240"){
-      let auteur = message.embeds[0].description.substr(2, 18)
-      let msgrequis = "Bump effectué !"
-      if(message.embeds[0].description.includes(msgrequis)){
-      // N'oublier pas de rajouter votre fonction si vous voulez donner des crédits à la personne qui bump votre serveur !
-      // Exemple avec quick.db :
-      //db.add(votrefonction_${auteur.id}, 10) 
-       message.channel.send(`<@${auteur}> vous avez gagné un truc !`)
-      }else if(message.embeds[0].description.includes("avant que le serveur puisse être bumpé !")){
-        message.channel.send(`<@${auteur}> vous n'avez rien gagné !`)
-      }
-    }
-  }
+/**
+ * @param {String} author_id - Id de l'auteur du message de bump ( Disboard )
+ * @param {String} embed_description - Description de l'embed que disboard a envoyé
+ * @returns {Promise<Object>}
+ */
+module.exports.checkBump = function (author_id, embed_description) {
+    return new Promise((resolve) => {
+        if (author_id === "302050872383242240" /* Id De Disboard */) {
+            const user_id = embed_description.substr(2, 18)
+            if (embed_description.includes("Bump effectué !")) {
+                resolve({
+                    bump: true,
+                    cooldown: false,
+                    user_id: user_id
+                })
+            } else if (embed_description.includes("avant que le serveur puisse être bumpé !")) {
+                resolve({
+                    bump: false,
+                    cooldown: true,
+                    user_id: user_id
+                })
+            } else {
+                resolve({
+                    bump: false,
+                    cooldown: false,
+                    user_id: user_id
+                })
+            }
+        }
+    })
+}
